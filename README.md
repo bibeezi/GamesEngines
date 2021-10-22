@@ -1,6 +1,6 @@
-# GamesEngines
+# Games Engines Project Idea
 
-For my Games Engines 1 project, I would like to build a universe that uses procedurally generated art for the planet textures.
+For my Games Engines project, I would like to build a universe that uses procedurally generated art for the planet textures.
 
 The user will be able to:
 * reset/create a new universe with a button.
