@@ -155,9 +155,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a298d76df37b1f240bf7a1f0897a301c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.25
-  rigidbody: {fileID: 4229464}
-  transform: {fileID: 641445119}
+  speed: 1
+  astronaut: {fileID: 4229463}
   walkpoint: {x: 0, y: 0, z: 0}
   walkPointRange: 0
 --- !u!1001 &641445118

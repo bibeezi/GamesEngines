@@ -5,22 +5,14 @@ using UnityEngine;
 public class AstroMovement : MonoBehaviour
 {
     public float speed = 0.01f;
-    public Rigidbody rigidbody;
-    public Transform transform;
+    public GameObject astronaut;
     public Vector3 walkpoint;
     bool walkpointSet = false;
     public int walkPointRange;
 
-    // private void Awake() 
-    // {
-
-    // }
-
     // Start is called before the first frame update
     void Start()
     {
-        transform = GameObject.Find("astronaut-1").transform;
-        rigidbody = GetComponent<Rigidbody>();
         walkPointRange = 50;
     }
 
@@ -32,7 +24,7 @@ public class AstroMovement : MonoBehaviour
             GetWalkPoint();
         }
         else {
-            rigidbody.MovePosition(transform.position + walkpoint * speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, walkpoint, speed * Time.deltaTime);
 
             Vector3 distanceToWalkpoint = transform.position - walkpoint;
 
