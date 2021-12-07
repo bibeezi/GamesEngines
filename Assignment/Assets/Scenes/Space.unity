@@ -315,6 +315,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1000
+  lookSpeed: 0.1
   astronaut: {fileID: 1882073964}
   rigidbody: {fileID: 0}
   walkpoint: {x: 0, y: 0, z: 0}

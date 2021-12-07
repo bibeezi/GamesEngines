@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class AstroMovement : MonoBehaviour
 {
-    public float speed = 1f;
+    public float speed = 100f;
+    public float lookSpeed = 0.2f;
     public GameObject astronaut;
     public Rigidbody rigidbody;
     public Vector3 walkpoint;
@@ -22,23 +23,38 @@ public class AstroMovement : MonoBehaviour
     void Update()
     {
         rigidbody.velocity = transform.forward * speed * Time.deltaTime;
-        // if(!walkpointSet)
-        // {
-        //     GetWalkPoint();
-        // }
-        // else {
 
-        //     transform.position = Vector3.MoveTowards(transform.position, walkpoint, speed * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(walkpoint, Vector3.up), lookSpeed * Time.deltaTime);
 
-        //     Vector3 distanceToWalkpoint = transform.position - walkpoint;
+        if(!walkpointSet)
+        {
+            GetWalkPoint();
+        }
+        else {
 
-        //     Debug.Log(distanceToWalkpoint.magnitude);
+            Vector3 distanceToWalkpoint = transform.position - walkpoint;
 
-        //     if(distanceToWalkpoint.magnitude < 1f)
-        //     {
-        //         walkpointSet = false;
-        //     }
-        // }
+            Debug.Log(distanceToWalkpoint.magnitude);
+
+            if(distanceToWalkpoint.magnitude < 5f)
+            {
+                
+                walkpointSet = false;
+            }
+
+            if(transform.position.x > walkPointRange - 10 || transform.position.y > walkPointRange - 10 || transform.position.z > walkPointRange - 10) 
+            {
+                lookSpeed = lookSpeed + 0.01f;
+            }
+            else if(transform.position.x < -walkPointRange + 10 || transform.position.y < -walkPointRange - 10 || transform.position.z < -walkPointRange - 10)
+            {
+                lookSpeed = lookSpeed + 0.01f;
+            }
+            else 
+            {
+                lookSpeed = 0.2f;
+            }
+        }
     }
 
     private void GetWalkPoint()
