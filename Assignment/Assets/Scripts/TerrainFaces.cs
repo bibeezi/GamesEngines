@@ -6,53 +6,69 @@ public class TerrainFaces : MonoBehaviour
 {
     Mesh mesh;
     int resolution;
-    Vector3 localUp;
+    Vector3 localVector;
     Vector3 axisA;
     Vector3 axisB;
 
-    public TerrainFaces(Mesh mesh, int resoluion, Vector3 localUp) 
+    public TerrainFaces(Mesh mesh, int resolution, Vector3 localVector) 
     {
         this.mesh = mesh;
         this.resolution = resolution;
-        this.localUp = localUp;
+        // localVector goes up locally
+        this.localVector = localVector;
 
-        axisA = new Vector3(localUp.y, localUp.z, localUp.x);
-        // cross product is the perpendicular of two vectors
-        axisB = Vector3.Cross(localUp, axisA);
+        // axisA goes right locally
+        axisA = new Vector3(localVector.y, localVector.z, localVector.x);
+        // cross product is the perpendicular of the two vectors that start from (0, 0, 0)
+        //  therefore, axis B goes towards locally.
+        axisB = Vector3.Cross(localVector, axisA);
     }
 
     public void ConstructMesh()
     {
         Vector3[] vertices = new Vector3(resolution ** 2);
-        // The amount of triangles is the resolution (vertices in width/height) - 1
-        // which is the amount of squares in width/height.
-        // Squared so the amount of squares is 2D,
-        // Multiplied by 2 since there are two triangles per square and
-        // Multiplied by 3 since each triangle has 3 vertices.
-        int[] triangles =  new int[((resolution - 1) ** 2) * 2 * 3];
-
-        int i = 0;
+        // the amount of vertices for each triangle
+        //  is each sqaure (resolution (vertices per line) - 1)
+        //  squared so the amount of squares is 2D,
+        //  multiplied by 2 since there are two triangles per square and
+        //  multiplied by 3 since each triangle has 3 vertices.
+        int[] triangleVertices =  new int[((resolution - 1) ** 2) * 2 * 3];
+        int i = 0, triangleVertex = 0;
+        
         for(int y = 0; y < resolution; y++)
         {
             for(int x = 0; x < resolution; x++)
             {
-                Vector2 percent = new Vector2(x, y) / (resolution - 1);
-                Vector3 pointOnUnitCube = localUp + (percent.x - 0.5f) * 2 * axisA + (percent.y - 0.5f) * 2 * axisB;
+                // when x is 0, it is in the first vertex of the mesh
+                // divided by resolution - 1 because there is no need to create triangles
+                //  on the last vertex
+                Vector2 vertex = new Vector2(x, y) / (resolution - 1);
+                // starts at (-1, 1, -1) vertex and ends at (1, 1, 1) vertex
+                Vector3 pointOnUnitCube = localVector + (vertex.x - 0.5f) * 2 * axisA + (vertex.y - 0.5f) * 2 * axisB;
                 vertices[i] = pointOnUnitCube;
                 i++; 
+
+                // Create the triangles starting from a vertex
+                //  except the very right vertex
+                if(x != resolution - 1 && y != resolution - 1)
+                {
+                    triangleVertices[triangleVertex] = i;
+                    triangleVertices[triangleVertex + 1] = i + resolution + 1;
+                    triangleVertices[triangleVertex + 2] = i + resolution;
+
+                    triangleVertices[triangleVertex + 3] = i;
+                    triangleVertices[triangleVertex + 4] = i + 1;
+                    triangleVertices[triangleVertex + 5] = i + resolution + 1;
+                    triangleVertex += 6;
+                }
             }
         }
-    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+        // clear previous data of mesh
+        mesh.Clear();
+        // set vertices and triangles of mesh
+        mesh.vertices = vertices;
+        mesh.triangles = triangleVertices;
+        // reset perpendicular of each triangle
+        mesh.RecalculateNormals();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-}
