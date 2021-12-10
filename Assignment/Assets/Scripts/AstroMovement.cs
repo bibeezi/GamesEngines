@@ -7,7 +7,7 @@ public class AstroMovement : MonoBehaviour
     public float speed = 100f;
     public float lookSpeed = 0.2f;
     public GameObject astronaut;
-    public Rigidbody rigidbody;
+    public Rigidbody astrobody;
     public Vector3 walkpoint;
     bool walkpointSet = false;
     public int walkPointRange;
@@ -15,14 +15,14 @@ public class AstroMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rigidbody = astronaut.GetComponent<Rigidbody>();
+        astrobody = astronaut.GetComponent<Rigidbody>();
         walkPointRange = 50;
     }
 
     // Update is called once per frame
     void Update()
     {
-        rigidbody.velocity = transform.forward * speed * Time.deltaTime;
+        astrobody.velocity = transform.forward * speed * Time.deltaTime;
 
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(walkpoint, Vector3.up), lookSpeed * Time.deltaTime);
 

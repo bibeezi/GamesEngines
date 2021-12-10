@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TerrainFaces : MonoBehaviour
+public class TerrainFaces
 {
     Mesh mesh;
     int resolution;
@@ -26,19 +26,20 @@ public class TerrainFaces : MonoBehaviour
 
     public void ConstructMesh()
     {
-        Vector3[] vertices = new Vector3(resolution ** 2);
+        Vector3[] vertices = new Vector3[resolution * resolution];
         // the amount of vertices for each triangle
         //  is each sqaure (resolution (vertices per line) - 1)
         //  squared so the amount of squares is 2D,
         //  multiplied by 2 since there are two triangles per square and
         //  multiplied by 3 since each triangle has 3 vertices.
-        int[] triangleVertices =  new int[((resolution - 1) ** 2) * 2 * 3];
-        int i = 0, triangleVertex = 0;
+        int[] triangleVertices = new int[(resolution - 1) * (resolution - 1) * 6];
+        int triangleVertex = 0;
         
         for(int y = 0; y < resolution; y++)
         {
             for(int x = 0; x < resolution; x++)
             {
+                int i = x + y * resolution;
                 // when x is 0, it is in the first vertex of the mesh
                 // divided by resolution - 1 because there is no need to create triangles
                 //  on the last vertex
@@ -46,7 +47,6 @@ public class TerrainFaces : MonoBehaviour
                 // starts at (-1, 1, -1) vertex and ends at (1, 1, 1) vertex
                 Vector3 pointOnUnitCube = localVector + (vertex.x - 0.5f) * 2 * axisA + (vertex.y - 0.5f) * 2 * axisB;
                 vertices[i] = pointOnUnitCube;
-                i++; 
 
                 // Create the triangles starting from a vertex
                 //  except the very right vertex
@@ -72,3 +72,4 @@ public class TerrainFaces : MonoBehaviour
         // reset perpendicular of each triangle
         mesh.RecalculateNormals();
     }
+}
