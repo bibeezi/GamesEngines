@@ -37,8 +37,11 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\AstroMovement.cs" />
+     <Compile Include="Assets\Scripts\ColourSettings.cs" />
      <Compile Include="Assets\Scripts\Planet.cs" />
+     <Compile Include="Assets\Scripts\ShapeGenerator.cs" />
      <Compile Include="Assets\Scripts\TerrainFaces.cs" />
+     <Compile Include="Assets\Scripts\TerrainShapeSettings.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.30f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>

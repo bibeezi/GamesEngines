@@ -9,9 +9,11 @@ public class TerrainFaces
     Vector3 localVector;
     Vector3 axisA;
     Vector3 axisB;
+    ShapeGenerator shapeGenerator;
 
-    public TerrainFaces(Mesh mesh, int resolution, Vector3 localVector) 
+    public TerrainFaces(ShapeGenerator shapeGenerator, Mesh mesh, int resolution, Vector3 localVector) 
     {
+        this.shapeGenerator = shapeGenerator;
         this.mesh = mesh;
         this.resolution = resolution;
         // localVector goes up locally
@@ -46,7 +48,9 @@ public class TerrainFaces
                 Vector2 vertex = new Vector2(x, y) / (resolution - 1);
                 // starts at (-1, 1, -1) vertex and ends at (1, 1, 1) vertex
                 Vector3 pointOnUnitCube = localVector + (vertex.x - 0.5f) * 2 * axisA + (vertex.y - 0.5f) * 2 * axisB;
-                vertices[i] = pointOnUnitCube;
+                // the vertices are changed to be between -1.0 and 1.0 to create an almost spherical shape
+                Vector3 pointOnUnitSphere = pointOnUnitCube.normalized;
+                vertices[i] = shapeGenerator.CalculatePointOnPlanet(pointOnUnitSphere);
 
                 // Create the triangles starting from a vertex
                 //  except the very right vertex
