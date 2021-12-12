@@ -62,14 +62,14 @@ public class Planet : MonoBehaviour
     }
 
     // Method to generate the planet when the terrain shape is updated
-    public void OnTerrainShapeSettings()
+    public void OnTerrainShapeSettingsUpdate()
     {
         Initialize();
         GenerateMesh();
     }
 
     // Method to generate the planet when the colour is updated
-    public void OnColourSettingsUpdated()
+    public void OnColourSettingsUpdate()
     {
         Initialize();
         GenerateColours();
