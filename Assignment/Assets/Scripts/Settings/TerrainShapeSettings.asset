@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abbc92933b37cc44293ff32cc18f6143, type: 3}
   m_Name: TerrainShapeSettings
   m_EditorClassIdentifier: 
-  planetRadius: 3.9
+  planetRadius: 4.14

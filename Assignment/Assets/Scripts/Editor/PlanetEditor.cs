@@ -7,31 +7,49 @@ using UnityEditor;
 public class PlanetEditor : Editor
 {
     Planet planet;
+    Editor terrainShapeEditor;
+    Editor colourEditor;
 
     public override void OnInspectorGUI()
     {
-        base.OnInspectorGUI();
-
-        DrawSettingsEditor(planet.terrainShapeSettings, planet.OnTerrainShapeSettingsUpdate);
-        DrawSettingsEditor(planet.colourSettings, planet.OnColourSettingsUpdate);
-    }
-
-    void DrawSettingsEditor(Object settings, System.Action onSettingsUpdate)
-    {
         using(var check = new EditorGUI.ChangeCheckScope())
         {
-            Editor editor = CreateEditor(settings);
-            editor.OnInspectorGUI();
+            base.OnInspectorGUI();
 
             if(check.changed)
             {
-                if(onSettingsUpdate != null)
-                {
-                    onSettingsUpdate();
-                }
+                planet.GeneratePlanet();
             }
         }
-        
+
+        DrawSettingsEditor(planet.terrainShapeSettings, planet.OnTerrainShapeSettingsUpdate, ref planet.terrainShapeSettingsFoldout, ref terrainShapeEditor);
+        DrawSettingsEditor(planet.colourSettings, planet.OnColourSettingsUpdate, ref planet.colourSettingsFoldout, ref colourEditor);    
+    }
+
+    void DrawSettingsEditor(Object settings, System.Action onSettingsUpdate, ref bool foldout, ref Editor editor)
+    {
+        if(settings != null)
+        {
+            foldout = EditorGUILayout.InspectorTitlebar(foldout, settings);
+
+            using(var check = new EditorGUI.ChangeCheckScope())
+            {
+                if(foldout)
+                {
+                    CreateCachedEditor(settings, null, ref editor);
+                    editor.OnInspectorGUI();
+
+                    if(check.changed)
+                    {
+                        if(onSettingsUpdate != null)
+                        {
+                            onSettingsUpdate();
+                        }
+                    }
+                }
+                
+            }
+        }
     }
 
     private void OnEnable()

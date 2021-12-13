@@ -16,15 +16,12 @@ public class Planet : MonoBehaviour
     // Terrain shape and planet colour
     public TerrainShapeSettings terrainShapeSettings;
     public ColourSettings colourSettings;
+    [HideInInspector]
+    public bool terrainShapeSettingsFoldout;
+    [HideInInspector]
+    public bool colourSettingsFoldout;
 
     ShapeGenerator shapeGenerator;
-
-    // Unity calls this function when the script is loaded or a value
-    //  changes in the inspector
-    private void OnValidate()
-    {
-        GeneratePlanet();
-    }
     
     void Initialize() 
     {
