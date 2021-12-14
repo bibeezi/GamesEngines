@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abbc92933b37cc44293ff32cc18f6143, type: 3}
   m_Name: TerrainShapeSettings
   m_EditorClassIdentifier: 
-  planetRadius: 4.14
+  planetRadius: 3.89
+  noiseSettings:
+    strength: 0.09
+    roughness: 14.25
+    rotate: {x: 0, y: 0, z: 0}

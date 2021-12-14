@@ -39,6 +39,8 @@
      <Compile Include="Assets\Scripts\AstroMovement.cs" />
      <Compile Include="Assets\Scripts\ColourSettings.cs" />
      <Compile Include="Assets\Scripts\FollowCamera.cs" />
+     <Compile Include="Assets\Scripts\Noise.cs" />
+     <Compile Include="Assets\Scripts\NoiseSettings.cs" />
      <Compile Include="Assets\Scripts\Planet.cs" />
      <Compile Include="Assets\Scripts\ShapeGenerator.cs" />
      <Compile Include="Assets\Scripts\TerrainFaces.cs" />

@@ -4,7 +4,8 @@ using UnityEngine;
 
 // A Scriptable Object stores data that can be accessed by reference from all Prefabs
 [CreateAssetMenu()]
-public class TerrainShapeSettings : ScriptableObject {
-    
+public class TerrainShapeSettings : ScriptableObject 
+{
     public float planetRadius = 1;
+    public NoiseSettings noiseSettings;
 }
