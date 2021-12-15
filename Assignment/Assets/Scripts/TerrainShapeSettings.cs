@@ -6,6 +6,6 @@ using UnityEngine;
 [CreateAssetMenu()]
 public class TerrainShapeSettings : ScriptableObject 
 {
-    public float planetRadius = 1;
+    public float planetRadius = 5f;
     public NoiseSettings noiseSettings;
 }

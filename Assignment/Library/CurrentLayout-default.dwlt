@@ -117,7 +117,7 @@ MonoBehaviour:
   m_MinSize: {x: 908, y: 421}
   m_MaxSize: {x: 22003, y: 10021}
   vertical: 0
-  controlID: 151
+  controlID: 4835
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_MinSize: {x: 201, y: 421}
   m_MaxSize: {x: 4001, y: 8021}
   vertical: 1
-  controlID: 15
+  controlID: 4803
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -162,8 +162,8 @@ MonoBehaviour:
     y: 0
     width: 671
     height: 369
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 201, y: 221}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 13}
@@ -401,9 +401,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -7.419275, y: 34.635693, z: -54.128178}
+    m_Target: {x: -55.696304, y: -71.938934, z: -351.5153}
     speed: 2
-    m_Value: {x: -21.087055, y: 5.111041, z: 8.525961}
+    m_Value: {x: -55.696304, y: -71.938934, z: -351.5153}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -449,13 +449,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.18219925, y: -0.029483423, z: 0.005522303, w: -0.9828565}
+    m_Target: {x: 0.19529045, y: -0.095930226, z: -0.018294938, w: -0.9759846}
     speed: 2
-    m_Value: {x: -0.12009505, y: -0.49890828, z: 0.07007943, w: -0.8554277}
+    m_Value: {x: 0.19526882, y: -0.0959196, z: -0.018292911, w: -0.9758765}
   m_Size:
-    m_Target: 21.814621
+    m_Target: 4.596957
     speed: 2
-    m_Value: 32.125336
+    m_Value: 4.596957
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -511,18 +511,18 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 68fbffffbe360000
+      m_ExpandedIDs: 68fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: Nebula1 Variant
-        m_OriginalName: Nebula1 Variant
+        m_Name: Nebula(Clone)
+        m_OriginalName: Nebula(Clone)
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: -39388
+        m_UserData: -26484
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
         m_OriginalEventType: 0
@@ -585,9 +585,9 @@ MonoBehaviour:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: b4370000
-    m_LastClickedID: 14260
-    m_ExpandedIDs: 00000000b437000000ca9a3b
+    m_SelectedIDs: c8370000
+    m_LastClickedID: 14280
+    m_ExpandedIDs: 00000000c8370000d437000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -615,7 +615,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000b4370000
+    m_ExpandedIDs: 00000000c837000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -667,7 +667,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 110}
+    m_ScrollPosition: {x: 0, y: 203}
     m_GridSize: 64
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 110
