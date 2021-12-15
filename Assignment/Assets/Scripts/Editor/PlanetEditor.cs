@@ -22,6 +22,11 @@ public class PlanetEditor : Editor
             }
         }
 
+        if (GUILayout.Button("Generate Planet"))
+        {
+            planet.GeneratePlanet();
+        }
+        
         DrawSettingsEditor(planet.terrainShapeSettings, planet.OnTerrainShapeSettingsUpdate, ref planet.terrainShapeSettingsFoldout, ref terrainShapeEditor);
         DrawSettingsEditor(planet.colourSettings, planet.OnColourSettingsUpdate, ref planet.colourSettingsFoldout, ref colourEditor);    
     }

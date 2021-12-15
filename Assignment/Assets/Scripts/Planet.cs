@@ -22,6 +22,11 @@ public class Planet : MonoBehaviour
     public bool colourSettingsFoldout;
 
     ShapeGenerator shapeGenerator;
+
+    void Start()
+    {
+        GeneratePlanet();    
+    }
     
     void Initialize() 
     {

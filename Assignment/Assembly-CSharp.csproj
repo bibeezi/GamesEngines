@@ -42,6 +42,7 @@
      <Compile Include="Assets\Scripts\Noise.cs" />
      <Compile Include="Assets\Scripts\NoiseSettings.cs" />
      <Compile Include="Assets\Scripts\Planet.cs" />
+     <Compile Include="Assets\Scripts\PlanetSpawner.cs" />
      <Compile Include="Assets\Scripts\ShapeGenerator.cs" />
      <Compile Include="Assets\Scripts\TerrainFaces.cs" />
      <Compile Include="Assets\Scripts\TerrainShapeSettings.cs" />
