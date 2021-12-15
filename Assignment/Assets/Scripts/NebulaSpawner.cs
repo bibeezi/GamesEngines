@@ -6,7 +6,7 @@ public class NebulaSpawner : MonoBehaviour
 {
     public float universeSize = 100f;
     public ParticleSystem nebula;
-    public int nebulaAmount = 5;
+    public int nebulaAmount = 10;
     List<Vector3> nebulaRanges;
     public NebulaGenerator nebulaGenerator;
 

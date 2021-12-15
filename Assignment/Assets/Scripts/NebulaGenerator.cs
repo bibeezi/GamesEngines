@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class NebulaGenerator : MonoBehaviour
 {
-    ParticleSystemShapeType[] shapes = { ParticleSystemShapeType.Donut, ParticleSystemShapeType.BoxEdge, ParticleSystemShapeType.Circle };
+    ParticleSystemShapeType[] shapes = { ParticleSystemShapeType.Donut, ParticleSystemShapeType.SingleSidedEdge, ParticleSystemShapeType.Circle };
+    
+    public int colourAmount;
+    GradientColorKey[] gradientColorKeys;
+    GradientColorKey gradientColorKey;
 
     public ParticleSystem GenerateNebula(ParticleSystem nebula)
     {
@@ -12,6 +16,7 @@ public class NebulaGenerator : MonoBehaviour
         ParticleSystem.EmissionModule emission = nebula.emission;
         ParticleSystem.ShapeModule shape = nebula.shape;
         ParticleSystem.VelocityOverLifetimeModule velocityOverLifetime = nebula.velocityOverLifetime;
+        ParticleSystem.ColorOverLifetimeModule colourOverLifetime = nebula.colorOverLifetime;
 
         main.duration = 99999;
         main.loop = true;
@@ -26,13 +31,13 @@ public class NebulaGenerator : MonoBehaviour
         {
             shape.radius = Random.Range(5, 10);
         }
-        else if(shape.shapeType == ParticleSystemShapeType.BoxEdge)
+        else if(shape.shapeType == ParticleSystemShapeType.SingleSidedEdge)
         {
-
+            shape.radius = Random.Range(30, 50);
         }
         else if(shape.shapeType == ParticleSystemShapeType.Circle)
         {
-
+            shape.radius = Random.Range(2, 10);
         }
 
         velocityOverLifetime.enabled = true;
@@ -40,21 +45,42 @@ public class NebulaGenerator : MonoBehaviour
         velocityOverLifetime.orbitalY = Random.Range(-0.5f, 0.5f);
         velocityOverLifetime.orbitalZ = Random.Range(-0.5f, 0.5f);
 
+        colourOverLifetime.enabled = true;
+        Gradient gradient = new Gradient();
+        gradient = getColour(gradient);
+        colourOverLifetime.color = new ParticleSystem.MinMaxGradient(gradient);
+
         return nebula;
     }
-    // ParticleSystem ps = GetComponent<ParticleSystem>();
-    //     var col = ps.colorOverLifetime;
-    //     col.enabled = true;
 
-    //     Gradient grad = new Gradient();
-    //     grad.SetKeys( new GradientColorKey[] { new GradientColorKey(Color.blue, 0.0f), new GradientColorKey(Color.red, 1.0f) }, new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 0.0f), new GradientAlphaKey(0.0f, 1.0f) } );
+    private Gradient getColour(Gradient gradient)
+    {
+        colourAmount = Random.Range(3, 6);
+        gradientColorKeys = new GradientColorKey[colourAmount];
 
-    //     col.color = grad;
+        for(int i = 0; i < colourAmount; i++)
+        {
+            if(i == 0)
+            {
+                Color color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+                gradientColorKey = new GradientColorKey(color, (float) i);
+            }
+            else if(i == colourAmount)
+            {
+                Color color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+                gradientColorKey = new GradientColorKey(color, 1f);
+            }
+            else
+            {
+                Color color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+                gradientColorKey = new GradientColorKey(color, Random.Range(0f, 1f));
+            }
+            
+            gradientColorKeys[i] = gradientColorKey;
+        }
 
-// ParticleSystem.MainModule psMain = particleLauncher.main;
-// ParticleSystem.ShapeModule psShape = particleLauncher.shape;
-// psShape.radius = 1;
-// psMain.startLifetime = 1.0f;
-// psMain.startSpeed = 30;
-// particleLauncher.Emit (1);
+        gradient.SetKeys(gradientColorKeys, new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 0.0f), new GradientAlphaKey(1.0f, 1.0f) });
+
+        return gradient;
+    }
 }

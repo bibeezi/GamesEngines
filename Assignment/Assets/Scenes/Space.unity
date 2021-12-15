@@ -407,7 +407,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   universeSize: 100
   nebula: {fileID: 7542079124267757010, guid: c66165221f471864ab2acfa1f09d2553, type: 3}
-  nebulaAmount: 5
+  nebulaAmount: 10
   nebulaGenerator: {fileID: 0}
 --- !u!4 &1107391002
 Transform:
@@ -435,6 +435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e8587fa5fea9d54382600d4e8811fd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colourAmount: 0
 --- !u!1 &1263283000
 GameObject:
   m_ObjectHideFlags: 0
