@@ -36,6 +36,7 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\AstroController.cs" />
      <Compile Include="Assets\Scripts\AstroMovement.cs" />
      <Compile Include="Assets\Scripts\ColourSettings.cs" />
      <Compile Include="Assets\Scripts\FollowCamera.cs" />

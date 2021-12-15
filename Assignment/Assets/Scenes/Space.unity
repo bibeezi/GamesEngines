@@ -343,7 +343,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1015361126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -356,7 +356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5f128c30fd9c1b4c8926c114d3640ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  universeSize: 100
+  universeSize: 50
   planetAmount: 10
   planet: {fileID: 6372255722505779439, guid: 4bfcc77d01ac8bf4685f5dd7f3917b99, type: 3}
   gameObjects: []
@@ -406,6 +406,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   universeSize: 100
+  offset: 50
   nebula: {fileID: 7542079124267757010, guid: c66165221f471864ab2acfa1f09d2553, type: 3}
   nebulaAmount: 10
   nebulaGenerator: {fileID: 0}
@@ -524,7 +525,7 @@ Transform:
   m_GameObject: {fileID: 1263283000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalScale: {x: 200, y: 200, z: 200}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
@@ -5295,7 +5296,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1882073964}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a298d76df37b1f240bf7a1f0897a301c, type: 3}
   m_Name: 
@@ -5328,6 +5329,22 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2000594141}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1882073968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1882073964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15ec57af789ac2c4fbdbe0b6012e73af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  astronaut: {fileID: 1882073964}
+  speed: 100
+  lookSpeed: 1
+  transform: {fileID: 0}
 --- !u!1001 &2000594141
 PrefabInstance:
   m_ObjectHideFlags: 0
