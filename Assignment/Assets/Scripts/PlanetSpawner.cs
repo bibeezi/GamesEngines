@@ -4,13 +4,32 @@ using UnityEngine;
 
 public class PlanetSpawner : MonoBehaviour
 {
-    public float universeSize = 1000f;
+    public float universeSize = 100f;
     public int planetAmount = 10;
     public GameObject planet;
 
+    public List<GameObject> gameObjects = new List<GameObject>();
+
+    public bool positionPlants = true;
+
+    IEnumerator MovePlanets(List<GameObject> planets){
+        for(int i = 0; i < planetAmount; i++){
+            planets[i].transform.position = new Vector3(0, 0, 0);
+        }
+
+        positionPlants = false;
+
+        yield return new WaitForSeconds(1);
+    }
+
     void Start()
     {
-        for(int i = 0; i < planetAmount; i ++)
+        for(int i = 0; i < planetAmount; i++)
+        {
+            gameObjects.Add(Instantiate(planet));
+        }
+
+        for(int j = 0; j < planetAmount; j++)
         {
             float planetX = Random.Range(-universeSize, universeSize);
             float planetY = Random.Range(-universeSize, universeSize);    
@@ -18,8 +37,13 @@ public class PlanetSpawner : MonoBehaviour
 
             Vector3 planetPosition = new Vector3(planetX, planetY, planetZ);
 
-            Instantiate(planet, planetPosition, Quaternion.identity);
+            gameObjects[j].transform.position = planetPosition;
         }
-            
+    }
+
+    void Update(){
+        if(positionPlants){
+            StartCoroutine(MovePlanets(gameObjects));
+        }
     }
 }

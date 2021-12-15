@@ -34,8 +34,6 @@ public class AstroMovement : MonoBehaviour
 
             Vector3 distanceToWalkpoint = transform.position - walkpoint;
 
-            Debug.Log(distanceToWalkpoint.magnitude);
-
             if(distanceToWalkpoint.magnitude < 5f)
             {
                 
@@ -59,7 +57,7 @@ public class AstroMovement : MonoBehaviour
 
     private void GetWalkPoint()
     {
-        Debug.Log("getting walkpoint");
+        // Debug.Log("getting walkpoint");
         // Calculate random point in range
         float randomX = Random.Range(-walkPointRange, walkPointRange);
         float randomY = Random.Range(-walkPointRange, walkPointRange);

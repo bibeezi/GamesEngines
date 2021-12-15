@@ -25,7 +25,7 @@ public class Planet : MonoBehaviour
 
     void Start()
     {
-        GeneratePlanet();    
+        GeneratePlanet();
     }
     
     void Initialize() 
@@ -37,6 +37,7 @@ public class Planet : MonoBehaviour
             meshFilters = new MeshFilter[faces];
         }
         terrainFaces = new TerrainFaces[faces];
+        
         Vector3[] directions = { Vector3.up, Vector3.down, Vector3.left, Vector3.right, Vector3.forward, Vector3.back };
 
         for (int i = 0; i < faces; i++)

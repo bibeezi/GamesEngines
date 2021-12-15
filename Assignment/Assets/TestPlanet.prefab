@@ -815,8 +815,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6372255722505779439}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.049999952, y: 2.45, z: 30.28}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6372255720814030716}
   - {fileID: 6372255721543535930}
@@ -856,8 +856,8 @@ MonoBehaviour:
   terrainShapeSettings: {fileID: 11400000, guid: 3e793e7063ab9a7409f8ad28a9903ba6,
     type: 2}
   colourSettings: {fileID: 11400000, guid: 1e3def4355fb321499296e434ab99880, type: 2}
-  terrainShapeSettingsFoldout: 1
-  colourSettingsFoldout: 1
+  terrainShapeSettingsFoldout: 0
+  colourSettingsFoldout: 0
 --- !u!1 &6372255722626786500
 GameObject:
   m_ObjectHideFlags: 0
