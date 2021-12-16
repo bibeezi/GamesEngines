@@ -392,7 +392,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1107391001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5345,6 +5345,8 @@ MonoBehaviour:
   speed: 100
   lookSpeed: 1
   transform: {fileID: 0}
+  angleX: 0
+  angleY: 0
 --- !u!1001 &2000594141
 PrefabInstance:
   m_ObjectHideFlags: 0

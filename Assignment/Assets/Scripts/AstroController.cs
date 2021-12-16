@@ -5,9 +5,10 @@ using UnityEngine;
 public class AstroController : MonoBehaviour
 {
     public GameObject astronaut;
-    public float speed = 100f;
-    public float lookSpeed = 1f;
+    public float lookSpeed = 100f;
     public Transform transform;
+    public float angleX = 0;
+    public float angleY = 0;
 
     void Start()
     {
@@ -20,9 +21,10 @@ public class AstroController : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
 
-        // transform.Rotate(Vector3.up, mouseX);
-        // transform.Rotate(Vector3.left, mouseY);
+        angleX = angleX + mouseX;
+        angleY = angleY + mouseY;
 
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(transform.position + new Vector3(mouseX, mouseY, 0), Vector3.up), lookSpeed * Time.deltaTime);
+        Quaternion smoothRotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(-angleY, angleX, 0), lookSpeed * Time.deltaTime);
+        transform.localRotation = smoothRotation;
     }
 }
