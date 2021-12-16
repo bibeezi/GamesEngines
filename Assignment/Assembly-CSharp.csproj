@@ -38,6 +38,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\AstroController.cs" />
      <Compile Include="Assets\Scripts\AstroMovement.cs" />
+     <Compile Include="Assets\Scripts\AstroToggle.cs" />
      <Compile Include="Assets\Scripts\ColourSettings.cs" />
      <Compile Include="Assets\Scripts\FollowCamera.cs" />
      <Compile Include="Assets\Scripts\NebulaGenerator.cs" />

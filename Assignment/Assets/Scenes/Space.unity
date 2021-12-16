@@ -5296,16 +5296,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1882073964}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a298d76df37b1f240bf7a1f0897a301c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rigidbody: {fileID: 0}
+  walkpoint: {x: 0, y: 0, z: 0}
   speed: 100
   lookSpeed: 0.1
-  astronaut: {fileID: 1882073964}
-  astrobody: {fileID: 0}
-  walkpoint: {x: 0, y: 0, z: 0}
   walkPointRange: 0
 --- !u!54 &1882073966
 Rigidbody:
@@ -5336,13 +5335,26 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1882073964}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 15ec57af789ac2c4fbdbe0b6012e73af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lookSpeed: 0.5
+  rigidbody: {fileID: 0}
+  lookSpeed: 0.1
   speed: 30
+--- !u!114 &1882073969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1882073964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f52507b05973bd429c7baf165454d1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2000594141
 PrefabInstance:
   m_ObjectHideFlags: 0

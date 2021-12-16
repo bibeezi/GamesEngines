@@ -4,19 +4,16 @@ using UnityEngine;
 
 public class AstroController : MonoBehaviour
 {
-    Transform transform;
-    Rigidbody rigidbody;
+    public Rigidbody rigidbody;
     public float lookSpeed = 0.5f;
     public float speed = 30f;
     float angleX = 0;
     float angleY = 0;
 
-
     void Start()
     {
         Cursor.visible = false;
-        transform = gameObject.transform;
-        rigidbody = gameObject.GetComponent<Rigidbody>();
+        rigidbody = GetComponent<Rigidbody>();
     }
 
     void Update()
