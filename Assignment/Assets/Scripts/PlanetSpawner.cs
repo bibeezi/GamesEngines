@@ -10,14 +10,14 @@ public class PlanetSpawner : MonoBehaviour
 
     public List<GameObject> gameObjects = new List<GameObject>();
 
-    public bool positionPlants = true;
+    public bool positionPlanets = true;
 
     IEnumerator MovePlanets(List<GameObject> planets){
         for(int i = 0; i < planetAmount; i++){
             planets[i].transform.position = new Vector3(0, 0, 0);
         }
 
-        positionPlants = false;
+        positionPlanets = false;
 
         yield return new WaitForSeconds(1);
     }
@@ -42,7 +42,7 @@ public class PlanetSpawner : MonoBehaviour
     }
 
     void Update(){
-        if(positionPlants){
+        if(positionPlanets){
             StartCoroutine(MovePlanets(gameObjects));
         }
     }

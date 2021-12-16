@@ -6,8 +6,9 @@ public class Planet : MonoBehaviour
 {
     // 256 is the maximum amount of vertices a mesh can have
     [Range(2,256)]
-    public int resolution = 10;
+    public int resolution = 100;
     int faces = 6;
+    public bool autoUpdate = true;
     // Save in the editor and hide in the inspector
     [SerializeField, HideInInspector]
     MeshFilter[] meshFilters;
@@ -67,15 +68,21 @@ public class Planet : MonoBehaviour
     // Method to generate the planet when the terrain shape is updated
     public void OnTerrainShapeSettingsUpdate()
     {
-        Initialize();
-        GenerateMesh();
+        if(autoUpdate)
+        {
+            Initialize();
+            GenerateMesh();
+        }
     }
 
     // Method to generate the planet when the colour is updated
     public void OnColourSettingsUpdate()
     {
-        Initialize();
-        GenerateColours();
+        if(autoUpdate)
+        {    
+            Initialize();
+            GenerateColours();
+        }
     }
 
     void GenerateMesh()

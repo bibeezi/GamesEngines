@@ -6,6 +6,18 @@ using UnityEngine;
 [CreateAssetMenu()]
 public class TerrainShapeSettings : ScriptableObject 
 {
-    public float planetRadius = 5f;
-    public NoiseSettings noiseSettings;
+    public float planetRadius = 1f;
+    public NoiseLayer[] noiseLayers;
+
+    [System.Serializable]
+    public class NoiseLayer
+    {
+        public bool enabled = true;
+        public NoiseSettings noiseSettings;
+    }
+
+    void Start()
+    {
+        noiseLayers = new NoiseLayer[2];
+    }
 }

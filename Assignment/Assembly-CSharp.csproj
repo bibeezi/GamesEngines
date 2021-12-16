@@ -44,6 +44,7 @@
      <Compile Include="Assets\Scripts\NebulaGenerator.cs" />
      <Compile Include="Assets\Scripts\NebulaSpawner.cs" />
      <Compile Include="Assets\Scripts\Noise.cs" />
+     <Compile Include="Assets\Scripts\NoiseFilter.cs" />
      <Compile Include="Assets\Scripts\NoiseSettings.cs" />
      <Compile Include="Assets\Scripts\Planet.cs" />
      <Compile Include="Assets\Scripts\PlanetSpawner.cs" />
