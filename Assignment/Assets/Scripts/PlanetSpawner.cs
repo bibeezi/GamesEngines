@@ -6,30 +6,22 @@ public class PlanetSpawner : MonoBehaviour
 {
     public float universeSize = 100f;
     public int planetAmount = 10;
-    public GameObject planet;
-
+    // public GameObject generatedPlanet;
+    public GameObject planetPrefab;
     public List<GameObject> gameObjects = new List<GameObject>();
-
     public bool positionPlanets = true;
 
-    IEnumerator MovePlanets(List<GameObject> planets){
-        for(int i = 0; i < planetAmount; i++){
-            planets[i].transform.position = new Vector3(0, 0, 0);
-        }
+    IEnumerator MovePlanets(){
+        // for(int i = 0; i < planetAmount; i++){
+        //     planets[i].transform.position = new Vector3(0, 0, 0);
+        //     planets[i].AddComponent<Planet>();
+        // }
 
-        positionPlanets = false;
-
+        // positionPlanets = false;
+            
         yield return new WaitForSeconds(1);
-    }
 
-    void Start()
-    {
         for(int i = 0; i < planetAmount; i++)
-        {
-            gameObjects.Add(Instantiate(planet));
-        }
-
-        for(int j = 0; j < planetAmount; j++)
         {
             float planetX = Random.Range(-universeSize, universeSize);
             float planetY = Random.Range(-universeSize, universeSize);    
@@ -37,13 +29,60 @@ public class PlanetSpawner : MonoBehaviour
 
             Vector3 planetPosition = new Vector3(planetX, planetY, planetZ);
 
-            gameObjects[j].transform.position = planetPosition;
+            GameObject planetPrefab = new GameObject();
+            // Planet planet = new Planet();
+            TerrainShapeSettings terrainShapeSettings = new TerrainShapeSettings();
+            ColourSettings colourSettings = new ColourSettings();
+
+            terrainShapeSettings.noiseLayers = new TerrainShapeSettings.NoiseLayer[2];
+
+            planetPrefab.AddComponent<Planet>();
+            planetPrefab.GetComponent<Planet>().terrainShapeSettings = terrainShapeSettings;
+            planetPrefab.GetComponent<Planet>().colourSettings = colourSettings;
+
+
+            planetPrefab.GetComponent<Planet>().GeneratePlanet();
+
+            planetPrefab.transform.position = planetPosition;
+
+            // gameObjects.Add(Instantiate(planetPrefab, planetPosition, Quaternion.identity));
         }
     }
 
-    void Update(){
-        if(positionPlanets){
-            StartCoroutine(MovePlanets(gameObjects));
-        }
+    void Start()
+    {
+
+        // GameObject planetPrefab = new GameObject();
+        // Planet planet = new Planet();
+        
+        // for(int i = 0; i < planetAmount; i++)
+        // {
+        //     float planetX = Random.Range(-universeSize, universeSize);
+        //     float planetY = Random.Range(-universeSize, universeSize);    
+        //     float planetZ = Random.Range(-universeSize, universeSize);
+
+        //     Vector3 planetPosition = new Vector3(planetX, planetY, planetZ);
+
+        //     GameObject planetPrefab = new GameObject();
+        //     Planet planet = new Planet();
+        //     TerrainShapeSettings terrainShapeSettings = new TerrainShapeSettings();
+        //     ColourSettings colourSettings = new ColourSettings();
+
+        //     planetPrefab.AddComponent<Planet>();
+        //     planetPrefab.GetComponent<Planet>().terrainShapeSettings = terrainShapeSettings;
+        //     planetPrefab.GetComponent<Planet>().colourSettings = colourSettings;
+
+        //     planetPrefab.transform.position = planetPosition;
+
+            // gameObjects.Add(Instantiate(planetPrefab, planetPosition, Quaternion.identity));
+        // }
+
+        StartCoroutine(MovePlanets());
     }
+
+    // void Update(){
+    //     if(positionPlanets){
+    //         StartCoroutine(MovePlanets(gameObjects));
+    //     }
+    // }
 }

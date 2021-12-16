@@ -22,19 +22,14 @@ public class Planet : MonoBehaviour
     [HideInInspector]
     public bool colourSettingsFoldout;
 
-    ShapeGenerator shapeGenerator;
+    TerrainGenerator terrainGenerator = new TerrainGenerator();
 
-    ColourGenerator colourGenerator;
-
-    void Start()
-    {
-        GeneratePlanet();
-    }
+    ColourGenerator colourGenerator = new ColourGenerator();
     
     void Initialize() 
     {
-        shapeGenerator = new ShapeGenerator(terrainShapeSettings);
-        colourGenerator = new ColourGenerator(colourSettings);
+        terrainGenerator.UpdateShapeSettings(terrainShapeSettings);
+        colourGenerator.UpdateColourSettings(colourSettings);
 
         if(meshFilters == null || meshFilters.Length == 0)
         {
@@ -57,16 +52,32 @@ public class Planet : MonoBehaviour
             }
             meshFilters[i].GetComponent<MeshRenderer>().sharedMaterial = colourSettings.planetMaterial;
             
-            terrainFaces[i] = new TerrainFaces(shapeGenerator, meshFilters[i].sharedMesh, resolution, directions[i]);
+            terrainFaces[i] = new TerrainFaces(terrainGenerator, meshFilters[i].sharedMesh, resolution, directions[i]);
         }
     }
 
     // Method to generate the planet with colour and terrain shape
     public void GeneratePlanet()
     {
+        Debug.Log("Here");
         Initialize();
         GenerateMesh();
         GenerateColours();
+    }
+
+    void GenerateMesh()
+    {
+        foreach(TerrainFaces face in terrainFaces)
+        {
+            face.ConstructMesh();
+        }
+
+        colourGenerator.UpdateHeights(terrainGenerator.heights);
+    }
+
+    public void GenerateColours()
+    {
+        colourGenerator.UpdateColours();
     }
 
     // Method to generate the planet when the terrain shape is updated
@@ -86,24 +97,6 @@ public class Planet : MonoBehaviour
         {    
             Initialize();
             GenerateColours();
-        }
-    }
-
-    void GenerateMesh()
-    {
-        foreach(TerrainFaces face in terrainFaces)
-        {
-            face.ConstructMesh();
-        }
-
-        colourGenerator.UpdateHeights(shapeGenerator.heights);
-    }
-
-    void GenerateColours()
-    {
-        foreach (MeshFilter mesh in meshFilters)
-        {
-            mesh.GetComponent<MeshRenderer>().sharedMaterial.color = colourSettings.planetColour;
         }
     }
 }
