@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abbc92933b37cc44293ff32cc18f6143, type: 3}
   m_Name: TerrainShapeSettings
   m_EditorClassIdentifier: 
-  planetRadius: 2.24
+  planetRadius: 4.35
   noiseLayers:
   - enabled: 1
     noiseSettings:
       numLayers: 5
-      height: 0.09
+      height: 0.1
       amount: 0.94
       roughness: 2.97
       rotate: {x: 0, y: 0, z: 0}
       connection: -0.57
-      protrusion: 0.34
+      protrusion: 0.4
   - enabled: 1
     noiseSettings:
       numLayers: 5

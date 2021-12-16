@@ -1336,7 +1336,7 @@ MonoBehaviour:
   - {fileID: 0}
   terrainShapeSettings: {fileID: 11400000, guid: 3e793e7063ab9a7409f8ad28a9903ba6,
     type: 2}
-  colourSettings: {fileID: 0}
+  colourSettings: {fileID: 11400000, guid: 1e3def4355fb321499296e434ab99880, type: 2}
   terrainShapeSettingsFoldout: 0
   colourSettingsFoldout: 0
 --- !u!1 &6372255722626786500
