@@ -373,7 +373,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1107391000
 GameObject:
@@ -392,7 +392,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1107391001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -422,7 +422,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1107391003
 MonoBehaviour:
@@ -5341,12 +5341,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15ec57af789ac2c4fbdbe0b6012e73af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  astronaut: {fileID: 1882073964}
-  speed: 100
-  lookSpeed: 1
-  transform: {fileID: 0}
-  angleX: 0
-  angleY: 0
+  lookSpeed: 0.5
+  speed: 30
 --- !u!1001 &2000594141
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5357,7 +5353,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 03f9af3d597399c488823f33e88d74dc,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 03f9af3d597399c488823f33e88d74dc,
         type: 3}
