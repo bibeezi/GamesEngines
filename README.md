@@ -212,7 +212,7 @@ private Gradient getColour(Gradient gradient)
 }
 ```
 The nebula spawner creates a specified amount of nebulas (10) in the scene and Instantiates() the nebulas in a random position using the Random.Range() for the x, y and z co-ordinates.
-###### NebulaSpawner.cs
+##### NebulaSpawner.cs
 ```cs
 void Start()
 {
@@ -273,10 +273,273 @@ private Vector3 getNebulaPosition()
 }
 ```
 ### Planets
-*Shape*
-*Terrain*
+*Shape and Terrain*
+The Planet shape was created by creating a 2D triangular mesh with a certain amount of vertices (resolution), and placing them at each direction ( Vector3.up, Vector3.down, Vector3.left, Vector3.right, Vector3.forward, Vector3.back ) to create a cube. This cube was then formed into a spherical shape by normalizing the vertices.
+##### TerrainFaces.cs
+```cs
+public TerrainFaces(TerrainGenerator terrainGenerator, Mesh mesh, int resolution, Vector3 localVector) 
+{
+    this.terrainGenerator = terrainGenerator;
+    this.mesh = mesh;
+    this.resolution = resolution;
+    // localVector goes up locally
+    this.localVector = localVector;
+
+    // axisA goes right locally
+    axisA = new Vector3(localVector.y, localVector.z, localVector.x);
+    // cross product is the perpendicular of the two vectors that start from (0, 0, 0)
+    //  therefore, axis B goes towards locally.
+    axisB = Vector3.Cross(localVector, axisA);
+}
+
+public void ConstructMesh()
+{
+    Vector3[] vertices = new Vector3[resolution * resolution];
+    // the amount of vertices for each triangle
+    //  is each sqaure (resolution (vertices per line) - 1)
+    //  squared so the amount of squares is 2D,
+    //  multiplied by 2 since there are two triangles per square and
+    //  multiplied by 3 since each triangle has 3 vertices.
+    int[] triangleVertices = new int[(resolution - 1) * (resolution - 1) * 6];
+    int triangleVertex = 0;
+        
+    for(int y = 0; y < resolution; y++)
+    {
+        for(int x = 0; x < resolution; x++)
+        {
+            int i = x + y * resolution;
+            // when x is 0, it is in the first vertex of the mesh
+            // divided by resolution - 1 because there is no need to create triangles
+            //  on the last vertex
+            Vector2 vertex = new Vector2(x, y) / (resolution - 1);
+            // starts at (-1, 1, -1) vertex and ends at (1, 1, 1) vertex
+            Vector3 pointOnUnitCube = localVector + (vertex.x - 0.5f) * 2 * axisA + (vertex.y - 0.5f) * 2 * axisB;
+            // the vertices are changed to be between -1.0 and 1.0 to create an almost spherical shape
+            Vector3 pointOnUnitSphere = pointOnUnitCube.normalized;
+            vertices[i] = terrainGenerator.CalculatePointOnPlanet(pointOnUnitSphere);
+
+            // Create the triangles starting from a vertex
+            //  except the very right vertex
+            if(x != resolution - 1 && y != resolution - 1)
+            {
+                triangleVertices[triangleVertex] = i;
+                triangleVertices[triangleVertex + 1] = i + resolution + 1;
+                triangleVertices[triangleVertex + 2] = i + resolution;
+
+                triangleVertices[triangleVertex + 3] = i;
+                triangleVertices[triangleVertex + 4] = i + 1;
+                triangleVertices[triangleVertex + 5] = i + resolution + 1;
+                triangleVertex += 6;
+            }
+        }
+    }
+
+    // clear previous data of mesh
+    mesh.Clear();
+    // set vertices and triangles of mesh
+    mesh.vertices = vertices;
+    mesh.triangles = triangleVertices;
+    // reset perpendicular of each triangle
+    mesh.RecalculateNormals();
+}
+```
+The TerrainGenerator calculates the heights of each vertex in the terrain for each NoiseLayer in the TerrainShapeSettings. NoiseLayers have a set of NoiseSettings whose parameters are randomly set using Random.Range(). NoiseFilters are created for each NoiseLayer which then calculates the heights of each vertex in the mesh using the NoiseSettings and Noise.
+##### TerrainGenerator.cs
+```cs
+public void UpdateShapeSettings(TerrainShapeSettings shapeSettings)
+{
+    this.shapeSettings = shapeSettings;
+    noiseFilters = new NoiseFilter[shapeSettings.noiseLayers.Length];
+
+    for (int i = 0; i < noiseFilters.Length; i++)
+    {
+        noiseFilters[i] = new NoiseFilter(shapeSettings.noiseLayers[i].noiseSettings);
+    }
+
+    heights = new Heights();
+}
+
+public Vector3 CalculatePointOnPlanet(Vector3 pointOnUnitSphere)
+{
+    float elevation = 0;
+    
+    for (int i = 0; i < noiseFilters.Length; i++)
+    {
+        if(shapeSettings.noiseLayers[i].enabled)
+        {
+            elevation += noiseFilters[i].Evaluate(pointOnUnitSphere);
+        }
+    }
+
+    elevation = shapeSettings.planetRadius * (1 + elevation);
+    heights.ChangeMaxMin(elevation);
+
+    return pointOnUnitSphere * elevation;
+}
+```
+##### TerrainShapeSettings
+```cs
+public float planetRadius = 1f;
+public NoiseLayer[] noiseLayers;
+
+[System.Serializable]
+public class NoiseLayer
+{
+    public bool enabled = true;
+    public NoiseSettings noiseSettings;
+}
+```
+##### NoiseSettings
+```cs
+[Range(1, 8)]
+public int numLayers = 5;
+public float height = Random.Range(0.15f, 0.35f);
+public float amount = 0.94f;
+public float roughness = Random.Range(2f, 3f);
+public Vector3 rotate = new Vector3(Random.Range(0, 100), Random.Range(0, 100), Random.Range(0, 100));
+public float connection = Random.Range(-0.25f, 0.25f);
+public float protrusion = Random.Range(0.1f, 1f);
+```
+##### NoiseFilter
+```cs
+public float Evaluate(Vector3 point)
+{
+    float noiseValue = 0;
+    float frequency = noiseSettings.amount;
+    float amplitude = 1;
+
+    for(int i = 0; i < noiseSettings.numLayers; i++)
+    {
+        float newPoint = noise.Evaluate(point * frequency + noiseSettings.rotate);
+        noiseValue += (newPoint + 1) * 0.5f * amplitude;
+        frequency *= noiseSettings.roughness;
+        amplitude *= noiseSettings.connection;
+    }
+
+    noiseValue = Mathf.Max(0, noiseValue - noiseSettings.protrusion);
+
+    return noiseValue * noiseSettings.height;
+}
+```
 *Colour*
+The material's minimum and maximum heights are set to the smallest and largest distance of the mesh's vertex from the center. The gradient is generated in the ColourSettings using the same function for the nebula gradient. The texture has a set resolution and the gradient's range is applied to the texture's pixels. The texture is then applied to the material. This creates the gradient range according to the height in the planet.
+##### ColourGenerator.cs
+```cs
+public void UpdateColourSettings(ColourSettings colourSettings)
+{
+    this.colourSettings = colourSettings;
+    texture = new Texture2D(textureResolution, 1);
+}
+
+public void UpdateHeights(Heights heights)
+{
+    colourSettings.planetMaterial.SetVector("_heights", new Vector4(heights.Min, heights.Max));
+}
+
+public void UpdateColours()
+{
+    Color[] colours = new Color[textureResolution];
+
+    for (int i = 0; i < textureResolution; i++)
+    {
+        colours[i] = colourSettings.planetGradient.Evaluate(i / (textureResolution - 1f));
+    }
+
+    texture.SetPixels(colours);
+    texture.Apply();
+
+    colourSettings.planetMaterial.SetTexture("_texture", texture);
+    colourSettings.getColour();
+}
+```
+##### ColourSettings.cs
+```cs
+public Gradient planetGradient;
+public Material planetMaterial;
+
+public int colourAmount;
+GradientColorKey[] gradientColorKeys;
+GradientColorKey gradientColorKey;
+```
+* getColour() function is also in ColourSettings.cs
+
 *Spawner*
+The planet spawner creates a GameObject for each planet to be created by a specified amount. Each planet gets a Planet script, a new TerrainShapeSetting, a new NoiseSetting for each NoiseLayer created, and a new ColourSetting. The NoiseSetting's parameters are randomly generated using Random.Range().
+The Planet script then generates a new planet with these settings.
+##### PlanetSpawner.cs
+```cs
+void Awake()
+{
+    for (int i = 0; i < planetAmount; i++)
+    {
+        GameObject planet = new GameObject("Planet " + i);
+        script = planet.AddComponent<Planet>();
+
+        TerrainShapeSettings terrainShapeSettings = new TerrainShapeSettings();
+        terrainShapeSettings.planetRadius = Random.Range(3f, 10f);
+        terrainShapeSettings.noiseLayers = new TerrainShapeSettings.NoiseLayer[2];
+
+        for (int j = 0; j < terrainShapeSettings.noiseLayers.Length; j++)
+        {
+            TerrainShapeSettings.NoiseLayer newLayer = new TerrainShapeSettings.NoiseLayer();
+            newLayer.enabled = true;
+
+            NoiseSettings noiseSettings = new NoiseSettings();
+
+            noiseSettings.numLayers = 5;
+            noiseSettings.amount = 0.94f;
+            if(j == 0)
+            {
+                noiseSettings.height = Random.Range(0.15f, 0.2f);
+                noiseSettings.roughness = Random.Range(2f, 2.5f);
+                noiseSettings.rotate = new Vector3(Random.Range(0, 100), Random.Range(0, 100), Random.Range(0, 100));
+                noiseSettings.connection = Random.Range(-0.25f, 0f);
+                noiseSettings.protrusion = Random.Range(0.1f, 0.5f);
+            }
+            else if(j == 1)
+            {
+                noiseSettings.height = Random.Range(0.35f, 0.5f);
+                noiseSettings.roughness = Random.Range(2.5f, 3f);
+                noiseSettings.rotate = new Vector3(Random.Range(0, 100), Random.Range(0, 100), Random.Range(0, 100));
+                noiseSettings.connection = Random.Range(0f, 0.25f);
+                noiseSettings.protrusion = Random.Range(0.5f, 1f);
+            }
+
+            newLayer.noiseSettings = noiseSettings;
+                
+            terrainShapeSettings.noiseLayers[j] = newLayer;
+        }
+
+        ColourSettings colourSettings = new ColourSettings();
+        colourSettings.planetGradient = new Gradient();
+        colourSettings.planetMaterial = new Material(Resources.Load<Shader>("Planet"));
+
+        script.ConstructNewPlanet(100, terrainShapeSettings, colourSettings);
+
+        planets.Add(planet);
+    }
+}
+```
+These generated planets are added to a List of GameObjects and iterated through once to position them into the scene. The positions are generated for each planet using Random.Range() for x, y and z co-ordinates.
+```cs
+IEnumerator MovePlanets(List<GameObject> planets){
+    for(int i = 0; i < planetAmount; i++){
+        planets[i].transform.position = new Vector3(
+            Random.Range(-universeSize, universeSize), 
+            Random.Range(-universeSize, universeSize), 
+            Random.Range(-universeSize, universeSize)
+        );
+    }
+
+    positionPlanets = false;
+        
+    yield return new WaitForSeconds(1);
+}
+```
+
+*Generating Planets*
+The Planet script generates random planets when called by the PlanetSpawner. When creating planet prefabs, the 
+#####
 
 # List of classes/assets in the project
 
