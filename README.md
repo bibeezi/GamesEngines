@@ -538,6 +538,7 @@ IEnumerator MovePlanets(List<GameObject> planets){
 ```
 
 *Generating Planets*
+
 The Planet script generates random planets when called by the PlanetSpawner. When creating planet prefabs, GeneratePlanet() is called. It creates the terrain and the colour gradient. In the Initialize, the script creates 6 new MeshFilters for each face of the cube sphere and 6 TerrainFaces. For each face it creates a new GameObject called "mesh". A MeshRenderer is added to the GameObject alongside a MeshFilter. The face's mesh Gameobject is then set a new mesh, and a material is set onto the MeshFilter's material. For each TerrainFace, instantiate a new TerrainFace.
 GenerateMesh() then generates a mesh for each face and GenerateColours() generates the gradient for the planet.
 
