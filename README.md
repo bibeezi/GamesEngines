@@ -538,8 +538,81 @@ IEnumerator MovePlanets(List<GameObject> planets){
 ```
 
 *Generating Planets*
-The Planet script generates random planets when called by the PlanetSpawner. When creating planet prefabs, the 
-#####
+The Planet script generates random planets when called by the PlanetSpawner. When creating planet prefabs, GeneratePlanet() is called. It creates the terrain and the colour gradient. In the Initialize, the script creates 6 new MeshFilters for each face of the cube sphere and 6 TerrainFaces. For each face it creates a new GameObject called "mesh". A MeshRenderer is added to the GameObject alongside a MeshFilter. The face's mesh Gameobject is then set a new mesh, and a material is set onto the MeshFilter's material. For each TerrainFace, instantiate a new TerrainFace.
+GenerateMesh() then generates a mesh for each face and GenerateColours() generates the gradient for the planet.
+
+##### Planet.cs
+```cs
+public void ConstructNewPlanet(int resolution, TerrainShapeSettings terrainShapeSettings, ColourSettings colourSettings)
+{
+    this.resolution = resolution;
+    this.terrainShapeSettings = terrainShapeSettings;
+    this.colourSettings = colourSettings;
+    
+    generated = true;
+
+    GeneratePlanet();
+}
+```
+
+```cs
+public void GeneratePlanet()
+{
+    Initialize();
+    GenerateMesh();
+    GenerateColours();
+}
+```
+
+```cs
+void Initialize() 
+{
+    terrainGenerator.UpdateShapeSettings(terrainShapeSettings);
+    colourGenerator.UpdateColourSettings(colourSettings);
+
+    if(meshFilters == null || meshFilters.Length == 0)
+    {
+        meshFilters = new MeshFilter[faces];
+    }
+    terrainFaces = new TerrainFaces[faces];
+    
+    Vector3[] directions = { Vector3.up, Vector3.down, Vector3.left, Vector3.right, Vector3.forward, Vector3.back };
+
+    for (int i = 0; i < faces; i++)
+    {
+        if(meshFilters[i] == null)
+        {
+            GameObject mesh = new GameObject("mesh");
+            mesh.transform.parent = transform;
+            
+            mesh.AddComponent<MeshRenderer>();
+            meshFilters[i] = mesh.AddComponent<MeshFilter>();
+            meshFilters[i].mesh = new Mesh();
+        }
+        meshFilters[i].GetComponent<MeshRenderer>().material = colourSettings.planetMaterial;
+        
+        terrainFaces[i] = new TerrainFaces(terrainGenerator, meshFilters[i].sharedMesh, resolution, directions[i]);
+    }
+}
+```
+
+```cs
+void GenerateMesh()
+{
+    foreach(TerrainFaces face in terrainFaces)
+    {
+        face.ConstructMesh();
+    }
+
+    colourGenerator.UpdateHeights(terrainGenerator.heights);
+}
+```
+```cs
+public void GenerateColours()
+{
+    colourGenerator.UpdateColours();
+}
+```
 
 # List of classes/assets in the project
 
