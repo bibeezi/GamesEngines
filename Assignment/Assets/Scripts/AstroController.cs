@@ -6,7 +6,7 @@ public class AstroController : MonoBehaviour
 {
     public Rigidbody rigidbody;
     public float lookSpeed = 0.5f;
-    public float speed = 30f;
+    public float speed = 100f;
     float angleX = 0;
     float angleY = 0;
 

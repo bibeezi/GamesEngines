@@ -23,8 +23,28 @@ public class Planet : MonoBehaviour
     public bool colourSettingsFoldout;
 
     TerrainGenerator terrainGenerator = new TerrainGenerator();
-
     ColourGenerator colourGenerator = new ColourGenerator();
+
+    private bool generated = false;
+
+    void Start()
+    {
+        if(generated)
+        {
+            GeneratePlanet();
+        }
+    }
+
+    public void ConstructNewPlanet(int resolution, TerrainShapeSettings terrainShapeSettings, ColourSettings colourSettings)
+    {
+        this.resolution = resolution;
+        this.terrainShapeSettings = terrainShapeSettings;
+        this.colourSettings = colourSettings;
+        
+        generated = true;
+
+        GeneratePlanet();
+    }
     
     void Initialize() 
     {
@@ -48,9 +68,9 @@ public class Planet : MonoBehaviour
                 
                 mesh.AddComponent<MeshRenderer>();
                 meshFilters[i] = mesh.AddComponent<MeshFilter>();
-                meshFilters[i].sharedMesh = new Mesh();
+                meshFilters[i].mesh = new Mesh();
             }
-            meshFilters[i].GetComponent<MeshRenderer>().sharedMaterial = colourSettings.planetMaterial;
+            meshFilters[i].GetComponent<MeshRenderer>().material = colourSettings.planetMaterial;
             
             terrainFaces[i] = new TerrainFaces(terrainGenerator, meshFilters[i].sharedMesh, resolution, directions[i]);
         }
@@ -59,7 +79,6 @@ public class Planet : MonoBehaviour
     // Method to generate the planet with colour and terrain shape
     public void GeneratePlanet()
     {
-        Debug.Log("Here");
         Initialize();
         GenerateMesh();
         GenerateColours();

@@ -16,7 +16,7 @@ MonoBehaviour:
   noiseLayers:
   - enabled: 1
     noiseSettings:
-      numLayers: 3
+      numLayers: 5
       height: 0.15
       amount: 0.94
       roughness: 2.97
@@ -26,9 +26,9 @@ MonoBehaviour:
   - enabled: 1
     noiseSettings:
       numLayers: 5
-      height: 0.37
-      amount: 1
-      roughness: 2.21
+      height: 0.15
+      amount: 0.94
+      roughness: 2.97
       rotate: {x: 0, y: 0, z: 0}
-      connection: 0.5
-      protrusion: 1.26
+      connection: -0.57
+      protrusion: 0.41

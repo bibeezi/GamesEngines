@@ -1326,7 +1326,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resolution: 100
-  autoUpdate: 0
+  autoUpdate: 1
   meshFilters:
   - {fileID: 0}
   - {fileID: 0}
@@ -1337,7 +1337,7 @@ MonoBehaviour:
   terrainShapeSettings: {fileID: 11400000, guid: 3e793e7063ab9a7409f8ad28a9903ba6,
     type: 2}
   colourSettings: {fileID: 11400000, guid: 1e3def4355fb321499296e434ab99880, type: 2}
-  terrainShapeSettingsFoldout: 0
+  terrainShapeSettingsFoldout: 1
   colourSettingsFoldout: 1
 --- !u!1 &6372255722626786500
 GameObject:

@@ -16,7 +16,7 @@ public class TerrainShapeSettings : ScriptableObject
         public NoiseSettings noiseSettings;
     }
 
-    void Start()
+    void Awake()
     {
         noiseLayers = new NoiseLayer[2];
     }
